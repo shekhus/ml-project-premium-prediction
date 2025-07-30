@@ -8,6 +8,28 @@ model_rest = joblib.load("artifacts/model_rest.joblib")
 scaler_young = joblib.load("artifacts/scaler_young.joblib")
 scaler_rest = joblib.load("artifacts/scaler_rest.joblib")
 
+def calculate_normalized_risk(medical_history):
+    risk_scores = {
+        "diabetes": 6,
+        "heart disease": 8,
+        "high blood pressure": 6,
+        "thyroid": 5,
+        "no disease": 0,
+        "none": 0
+    }
+    # Split the medical history into potential two parts and convert to lowercase
+    diseases = medical_history.lower().split(" & ")
+
+    # Calculate the total risk score by summing the risk scores for each part
+    total_risk_score = sum(risk_scores.get(disease, 0) for disease in diseases)  # Default to 0 if disease not found
+
+    max_score = 14 # risk score for heart disease (8) + second max risk score (6) for diabetes or high blood pressure
+    min_score = 0  # Since the minimum score is always 0
+
+    # Normalize the total risk score
+    normalized_risk_score = (total_risk_score - min_score) / (max_score - min_score)
+
+    return normalized_risk_score
 
 def preprocess_input(input_dict):
     # Define the expected columns and initialize the DataFrame with zeros
