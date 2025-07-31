@@ -54,4 +54,8 @@ install required libraries
 pip install -r requirements.txt 
 
 run the following command in your terminal to run the project
+<<<<<<< HEAD
 streamlit run .\main.py
+=======
+streamlit run .\main.py
+>>>>>>> 40fdf2bb84a535daac2a2e91016e757ad571c3f5
